@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import project.pages.LoginPage;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,7 +17,7 @@ import java.time.Duration;
 public class BaseTest {
     protected WebDriver driver;
     protected WebDriverWait wait;
-    protected MainPage mainPage;
+    protected LoginPage loginPage;
 
     @BeforeEach
     public void setUp() {
@@ -46,7 +47,7 @@ public class BaseTest {
         }
 
         wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-        mainPage = new MainPage(driver, wait);
+        loginPage = new LoginPage(driver, wait);
         driver.get("https://www.saucedemo.com/");
     }
 
