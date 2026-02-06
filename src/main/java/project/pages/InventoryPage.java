@@ -51,8 +51,10 @@ public class InventoryPage {
     }
 
     public boolean isLogoLoaded() {
-        return driver.findElement(appLogo).isDisplayed();
+        return !driver.findElements(appLogo).isEmpty()
+                && driver.findElement(appLogo).isDisplayed();
     }
+
 
     public int getCartCount() {
         List<WebElement> elements = driver.findElements(shoppingCartItemCount);

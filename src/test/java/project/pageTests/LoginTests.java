@@ -18,9 +18,14 @@ public class LoginTests extends BaseTest {
             "visual_user, secret_sauce"
     })
     void loginTest(String username, String password) {
-        InventoryPage inventoryPage = loginPage.login(username, password);
-        boolean isLogoLoaded = inventoryPage.isLogoLoaded();
-        Assertions.assertTrue(isLogoLoaded);
+        loginPage.login(username, password);
+
+        if ("locked_out_user".equals(username)) {
+            Assertions.assertTrue(loginPage.isLoginButtonStillVisible());
+        } else {
+            InventoryPage inventoryPage = new InventoryPage(driver, wait);
+            Assertions.assertTrue(inventoryPage.isLogoLoaded());
+        }
     }
 
     @ParameterizedTest
