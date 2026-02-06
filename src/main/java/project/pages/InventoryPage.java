@@ -59,17 +59,11 @@ public class InventoryPage {
     }
 
     public boolean isLogoLoaded() {
-        return !driver.findElements(appLogo).isEmpty()
-                && driver.findElement(appLogo).isDisplayed();
+        return !driver.findElements(appLogo).isEmpty() && driver.findElement(appLogo).isDisplayed();
     }
 
-
     public int getCartCount() {
-        List<WebElement> elements = driver.findElements(shoppingCartItemCount);
-        if (elements.isEmpty()) {
-            return 0;
-        }
-        return Integer.parseInt(elements.get(0).getText());
+        return Integer.parseInt(driver.findElement(shoppingCartItemCount).getText());
     }
 
     public int addAllItems() {
@@ -113,5 +107,11 @@ public class InventoryPage {
         wait.until(ExpectedConditions.elementToBeClickable(burgerMenu)).click();
         wait.until(ExpectedConditions.elementToBeClickable(logoutButton)).click();
         return new LoginPage(driver, wait);
+    }
+
+    public InventoryItemPage clickOnItemName() {
+        List<WebElement> productNameElements = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(productNames));
+        wait.until(ExpectedConditions.elementToBeClickable(productNameElements.get(0))).click();
+        return new InventoryItemPage(driver, wait);
     }
 }

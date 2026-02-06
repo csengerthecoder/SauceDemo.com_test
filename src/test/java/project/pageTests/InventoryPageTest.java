@@ -4,9 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import project.main.BaseTest;
+import project.pages.InventoryItemPage;
 import project.pages.InventoryPage;
 import project.pages.LoginPage;
-
 import java.util.List;
 
 
@@ -45,5 +45,11 @@ public class InventoryPageTest extends BaseTest {
     void testLogout() {
         LoginPage loginPage = inventory.logout();
         Assertions.assertTrue(loginPage.isLoginButtonVisible());
+    }
+
+    @Test
+    void testOpeningInventoryItemPage() {
+        InventoryItemPage itemPage = inventory.clickOnItemName();
+        Assertions.assertTrue(itemPage.isBackToProductsButtonVisible());
     }
 }
