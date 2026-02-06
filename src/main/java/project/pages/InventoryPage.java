@@ -18,6 +18,7 @@ public class InventoryPage {
     private final By burgerMenu = By.id("react-burger-menu-btn");
     private final By filter = By.cssSelector("[data-test='product-sort-container']");
     private final By productNames = By.className("inventory_item_name");
+    private final By logoutButton = By.id("logout_sidebar_link");
 
     private final By shoppingCartItemCount = By.cssSelector("[data-test='shopping-cart-badge']");
     public  final By backPackAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-backpack']");
@@ -106,5 +107,11 @@ public class InventoryPage {
         List<String> sorted = new ArrayList<>(list);
         sorted.sort(Comparator.reverseOrder());
         return sorted.equals(list);
+    }
+
+    public LoginPage logout() {
+        wait.until(ExpectedConditions.elementToBeClickable(burgerMenu)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(logoutButton)).click();
+        return new LoginPage(driver, wait);
     }
 }

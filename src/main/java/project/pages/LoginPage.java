@@ -24,7 +24,7 @@ public class LoginPage {
         return new InventoryPage(driver, wait);
     }
 
-    public boolean isLoginButtonStillVisible() {
+    public boolean isLoginButtonVisible() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(loginButton)).isDisplayed();
     }
 }

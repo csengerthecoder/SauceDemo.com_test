@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import project.main.BaseTest;
 import project.pages.InventoryPage;
+import project.pages.LoginPage;
 
 import java.util.List;
 
@@ -34,9 +35,15 @@ public class InventoryPageTest extends BaseTest {
     }
 
     @Test
-    public void testReversedAlphabeticalOrder() {
+    void testReversedAlphabeticalOrder() {
         inventory.setFilterToAlphabeticallyReversed();
         List<String> productNames = inventory.getProductNames();
         Assertions.assertTrue(inventory.isSortedDescending(productNames));
+    }
+
+    @Test
+    void testLogout() {
+        LoginPage loginPage = inventory.logout();
+        Assertions.assertTrue(loginPage.isLoginButtonVisible());
     }
 }

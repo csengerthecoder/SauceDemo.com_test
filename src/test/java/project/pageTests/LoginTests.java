@@ -21,7 +21,7 @@ public class LoginTests extends BaseTest {
         loginPage.login(username, password);
 
         if ("locked_out_user".equals(username)) {
-            Assertions.assertTrue(loginPage.isLoginButtonStillVisible());
+            Assertions.assertTrue(loginPage.isLoginButtonVisible());
         } else {
             InventoryPage inventoryPage = new InventoryPage(driver, wait);
             Assertions.assertTrue(inventoryPage.isLogoLoaded());
@@ -39,7 +39,7 @@ public class LoginTests extends BaseTest {
     })
     void loginTestWithWrongPassword(String username, String password) {
         loginPage.login(username, password);
-        boolean isLoginButtonStillVisible = loginPage.isLoginButtonStillVisible();
+        boolean isLoginButtonStillVisible = loginPage.isLoginButtonVisible();
         Assertions.assertTrue(isLoginButtonStillVisible);
     }
 
@@ -54,7 +54,7 @@ public class LoginTests extends BaseTest {
     })
     void loginTestWithWrongUsername(String username, String password) {
         loginPage.login(username, password);
-        boolean isLoginButtonStillVisible = loginPage.isLoginButtonStillVisible();
+        boolean isLoginButtonStillVisible = loginPage.isLoginButtonVisible();
         Assertions.assertTrue(isLoginButtonStillVisible);
     }
 
@@ -69,7 +69,7 @@ public class LoginTests extends BaseTest {
     })
     void loginTestWithEmptyPassword(String username, String password) {
         loginPage.login(username, password);
-        boolean isLoginButtonStillVisible = loginPage.isLoginButtonStillVisible();
+        boolean isLoginButtonStillVisible = loginPage.isLoginButtonVisible();
         Assertions.assertTrue(isLoginButtonStillVisible);
     }
 }
