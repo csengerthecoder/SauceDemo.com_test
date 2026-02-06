@@ -2,12 +2,48 @@ package project.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
 
 public class InventoryPage {
     private WebDriver driver;
     private WebDriverWait wait;
     private final By appLogo = By.className("app_logo");
+    private static final By shoppingCartItemCount = By.cssSelector("[data-test='shopping-cart-badge']");
+    public static final By backPackAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-backpack']");
+    public static final By bikeLightAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-bike-light']");
+    public static final By tShirtAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-bolt-t-shirt']");
+    public static final By jacketAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-fleece-jacket']");
+    public static final By onesieAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-onesie']");
+    public static final By redShirtAddButton = By.cssSelector("[data-test='add-to-cart-test.allthethings()-t-shirt-(red)']");
+    private final By backPackRemoveButton = By.cssSelector("[data-test='remove-sauce-labs-backpack']");
+    private final By bikeLightRemoveButton = By.cssSelector("[data-test='remove-sauce-labs-bike-light']");
+    private final By tShirtRemoveButton = By.cssSelector("[data-test='remove-sauce-labs-bolt-t-shirt']");
+    private final By jacketRemoveButton = By.cssSelector("[data-test='remove-sauce-labs-fleece-jacket']");
+    private final By onesieRemoveButton = By.cssSelector("[data-test='remove-sauce-labs-onesie']");
+    private final By redShirtRemoveButton = By.cssSelector("[data-test='remove-test.allthethings()-t-shirt-(red)']");
+
+    private final List<By> addButtons = List.of(
+            backPackAddButton,
+            bikeLightAddButton,
+            tShirtAddButton,
+            jacketAddButton,
+            onesieAddButton,
+            redShirtAddButton
+    );
+
+    private final List<By> removeButtons = List.of(
+            backPackRemoveButton,
+            bikeLightRemoveButton,
+            tShirtRemoveButton,
+            jacketRemoveButton,
+            onesieRemoveButton,
+            redShirtRemoveButton
+    );
+
 
     public InventoryPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -18,4 +54,29 @@ public class InventoryPage {
         return driver.findElement(appLogo).isDisplayed();
     }
 
+    public int getCartCount() {
+        List<WebElement> elements = driver.findElements(shoppingCartItemCount);
+        if (elements.isEmpty()) {
+            return 0;
+        }
+        return Integer.parseInt(elements.get(0).getText());
+    }
+
+    public int addAllItems() {
+        int count = 0;
+        for (By addButton : addButtons) {
+            wait.until(ExpectedConditions.elementToBeClickable(addButton)).click();
+            count++;
+        }
+        return count;
+    }
+
+    public int removeAllItems() {
+        int count = 0;
+        for (By removeButton : removeButtons) {
+            wait.until(ExpectedConditions.elementToBeClickable(removeButton)).click();
+            count++;
+        }
+        return count;
+    }
 }
