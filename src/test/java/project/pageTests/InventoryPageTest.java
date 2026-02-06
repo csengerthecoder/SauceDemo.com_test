@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import project.main.BaseTest;
 import project.pages.InventoryPage;
 
+import java.util.List;
+
 
 public class InventoryPageTest extends BaseTest {
 
@@ -29,5 +31,12 @@ public class InventoryPageTest extends BaseTest {
         int beforeRemoveCount = inventory.getCartCount();
         int itemRemovedCount = inventory.removeAllItems();
         Assertions.assertTrue(itemRemovedCount == beforeRemoveCount);
+    }
+
+    @Test
+    public void testReversedAlphabeticalOrder() {
+        inventory.setFilterToAlphabeticallyReversed();
+        List<String> productNames = inventory.getProductNames();
+        Assertions.assertTrue(inventory.isSortedDescending(productNames));
     }
 }

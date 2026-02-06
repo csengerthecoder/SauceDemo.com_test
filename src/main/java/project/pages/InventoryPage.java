@@ -4,21 +4,28 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class InventoryPage {
     private WebDriver driver;
     private WebDriverWait wait;
     private final By appLogo = By.className("app_logo");
-    private static final By shoppingCartItemCount = By.cssSelector("[data-test='shopping-cart-badge']");
-    public static final By backPackAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-backpack']");
-    public static final By bikeLightAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-bike-light']");
-    public static final By tShirtAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-bolt-t-shirt']");
-    public static final By jacketAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-fleece-jacket']");
-    public static final By onesieAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-onesie']");
-    public static final By redShirtAddButton = By.cssSelector("[data-test='add-to-cart-test.allthethings()-t-shirt-(red)']");
+    private final By burgerMenu = By.id("react-burger-menu-btn");
+    private final By filter = By.cssSelector("[data-test='product-sort-container']");
+    private final By productNames = By.className("inventory_item_name");
+
+    private final By shoppingCartItemCount = By.cssSelector("[data-test='shopping-cart-badge']");
+    public  final By backPackAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-backpack']");
+    public  final By bikeLightAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-bike-light']");
+    public  final By tShirtAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-bolt-t-shirt']");
+    public final By jacketAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-fleece-jacket']");
+    public final By onesieAddButton = By.cssSelector("[data-test='add-to-cart-sauce-labs-onesie']");
+    public final By redShirtAddButton = By.cssSelector("[data-test='add-to-cart-test.allthethings()-t-shirt-(red)']");
     private final By backPackRemoveButton = By.cssSelector("[data-test='remove-sauce-labs-backpack']");
     private final By bikeLightRemoveButton = By.cssSelector("[data-test='remove-sauce-labs-bike-light']");
     private final By tShirtRemoveButton = By.cssSelector("[data-test='remove-sauce-labs-bolt-t-shirt']");
@@ -80,5 +87,24 @@ public class InventoryPage {
             count++;
         }
         return count;
+    }
+
+    public void setFilterToAlphabeticallyReversed() {
+        WebElement dropDown = wait.until(ExpectedConditions.elementToBeClickable(filter));
+        Select select = new Select(dropDown);
+        select.selectByVisibleText("Name (Z to A)");
+    }
+
+    public List<String> getProductNames() {
+        List<WebElement> productElements = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(productNames));
+        return productElements.stream()
+                .map(WebElement::getText)
+                .toList();
+    }
+
+    public boolean isSortedDescending(List<String> list) {
+        List<String> sorted = new ArrayList<>(list);
+        sorted.sort(Comparator.reverseOrder());
+        return sorted.equals(list);
     }
 }

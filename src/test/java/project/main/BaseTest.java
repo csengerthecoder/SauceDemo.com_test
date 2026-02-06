@@ -78,10 +78,10 @@ public class BaseTest {
         driver.get("https://www.saucedemo.com/");
     }
 
-    @AfterEach
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+//    @AfterEach
+//    public void tearDown() {
+//        if (driver != null) {
+//            driver.quit();
+//        }
+//    }
 }
