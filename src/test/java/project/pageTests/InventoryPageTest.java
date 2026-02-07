@@ -11,7 +11,6 @@ import java.util.List;
 
 
 public class InventoryPageTest extends BaseTest {
-
     private InventoryPage inventory;
 
     @BeforeEach
