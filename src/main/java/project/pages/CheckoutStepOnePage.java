@@ -10,9 +10,9 @@ public class CheckoutStepOnePage {
     private WebDriverWait wait;
     private final By continueButton = By.cssSelector("[data-test='continue']");
     private final By cancelButton = By.cssSelector("[data-test='cancel']");
-    private final By firstName = By.cssSelector("[data-test='firstName']");
-    private final By lastName = By.cssSelector("[data-test='lastName']");
-    private final By zipCode =  By.cssSelector("[data-test='postalCode']");
+    private final By firstNameInput = By.cssSelector("[data-test='firstName']");
+    private final By lastNameInput = By.cssSelector("[data-test='lastName']");
+    private final By zipCodeInput =  By.cssSelector("[data-test='postalCode']");
 
     public CheckoutStepOnePage(WebDriver driver,  WebDriverWait wait) {
         this.driver = driver;
@@ -24,5 +24,18 @@ public class CheckoutStepOnePage {
         return driver.findElement(continueButton).isDisplayed();
     }
 
+    public void fillOutForm(String firstName, String lastName, String zipCode) {
+        wait.until(ExpectedConditions.elementToBeClickable(firstNameInput)).sendKeys(firstName);
+        wait.until(ExpectedConditions.elementToBeClickable(lastNameInput)).sendKeys(lastName);
+        wait.until(ExpectedConditions.elementToBeClickable(zipCodeInput)).sendKeys(zipCode);
+    }
 
+    public CheckoutStepTwoPage continueCheckout() {
+        wait.until(ExpectedConditions.elementToBeClickable(continueButton)).click();
+        return new CheckoutStepTwoPage(driver, wait);
+    }
+    public CartPage cancelCheckout() {
+        wait.until(ExpectedConditions.elementToBeClickable(cancelButton)).click();
+        return new  CartPage(driver, wait);
+    }
 }
